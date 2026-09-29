@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Cache gerado a partir do PDF pelo garantir_csv() (materia_v2.py):
+# quem clonar gera na primeira execução.
+turmas.csv
+
+# Backup que o trocar_pdf.py faz antes de substituir o PDF de turmas
+*.bak
+
+# Config local do Claude Code (é da máquina, não do projeto)
+.claude/
+
+# Sistema operacional / editores
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/

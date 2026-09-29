@@ -1,0 +1,1448 @@
+:root {
+  --bg: #0b1220;
+  --panel: #121b2e;
+  --panel-2: #1a2438;
+  --border: #22304a;
+  --text: #e6ebf5;
+  --muted: #8b96ab;
+  --accent: #2ecc87;
+  --accent-soft: rgba(46, 204, 135, 0.14);
+  --grade-linha-fraca: rgba(255, 255, 255, 0.05);
+  --radius: 14px;
+}
+
+[data-theme="light"] {
+  --grade-linha-fraca: rgba(0, 0, 0, 0.05);
+  --bg: #e7ebf2;
+  --panel: #f7f8fb;
+  --panel-2: #eaedf3;
+  --border: #d3d9e3;
+  --text: #1c2230;
+  --muted: #5c6577;
+  --accent-soft: rgba(46, 204, 135, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  /* o data-theme também vai no <html> (ver App.jsx), então a cor de fundo
+     acompanha o tema e não sobra branco ao passar do fim da página. */
+  background: var(--bg);
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin-left: 260px;
+}
+
+.sidebar-fechar {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+}
+
+.topbar-mobile {
+  display: none;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.hamburguer-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+}
+
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 14px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.sidebar-logo .icon {
+  font-size: 24px;
+  display: flex;
+  color: var(--accent);
+}
+
+.nav-item,
+.materia-toggle .left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  text-decoration: none;
+}
+
+.nav-item svg,
+.materia-toggle .left svg {
+  flex-shrink: 0;
+}
+
+.theme-toggle svg {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.theme-toggle svg.icon-on {
+  color: var(--accent);
+}
+
+.sidebar-logo .title {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.sidebar-logo .subtitle {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  text-align: left;
+  width: 100%;
+}
+
+.nav-item.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 32px 40px;
+  max-width: 1100px;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.main-header h1 {
+  font-size: 30px;
+  margin: 0 0 6px 0;
+}
+
+.main-header h1 .accent {
+  color: var(--accent);
+}
+
+.main-header .subtitle {
+  color: var(--muted);
+  margin: 0;
+  font-size: 14px;
+}
+
+.main-header-acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.switch {
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+}
+
+.switch.is-light {
+  background: #9aa3b2;
+}
+
+.switch.is-dark {
+  background: var(--accent);
+}
+
+.switch .knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 2px;
+  transition: left 0.15s ease;
+}
+
+.switch.is-dark .knob {
+  left: 20px;
+}
+
+.switch.is-light .knob {
+  left: 2px;
+}
+
+/* Cards genéricos */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #05261a;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-primary:disabled {
+  background: var(--panel-2);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+/* Seletor de matéria (accordion) */
+.materia-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.materia-toggle .left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.materia-toggle .chevron {
+  color: var(--muted);
+  transition: transform 0.15s ease;
+}
+
+.materia-toggle .chevron.open {
+  transform: rotate(90deg);
+}
+
+.combobox-wrap {
+  position: relative;
+  margin-top: 16px;
+}
+
+.combobox-wrap input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+.combobox-loading {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.carregando-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.carregando-card p {
+  margin: 4px 0 0 0;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  animation: girar 0.7s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.combobox-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.combobox-option {
+  padding: 9px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.combobox-option:hover,
+.combobox-option.selected {
+  background: var(--accent-soft);
+}
+
+/* Título do ranking */
+.ranking-title {
+  font-size: 20px;
+  margin: 24px 0 14px 0;
+}
+
+.ranking-title .accent {
+  color: var(--accent);
+}
+
+/* Sobre */
+.sobre-container {
+  max-width: 680px;
+}
+
+.sobre-hero {
+  margin-bottom: 24px;
+}
+
+.sobre-hero-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 22px;
+  margin-bottom: 14px;
+}
+
+.sobre-hero h2 {
+  font-size: 28px;
+  margin: 0 0 10px 0;
+}
+
+.sobre-lead {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0;
+}
+
+.sobre-bloco {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+}
+
+.sobre-bloco p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.sobre-bloco-icon {
+  display: flex;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--accent);
+  margin-top: 2px;
+}
+
+/* O agradecimento fecha a página, então ganha a barra de destaque */
+.sobre-creditos {
+  border-left: 3px solid var(--accent);
+}
+
+.sobre-container a.accent {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sobre-container a.accent:hover {
+  text-decoration: underline;
+}
+
+/* Aba Matérias */
+.materias-busca {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.materias-busca input {
+  padding-left: 40px;
+}
+
+.materias-busca-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.materias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.materia-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.materia-card-topo h4 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.materia-codigo {
+  font-size: 12px;
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.materia-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.materia-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.materia-card-cursos {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  /* nome de curso é longo e há matéria compartilhada por vários: o card corta
+     em duas linhas e a lista inteira fica no title (tooltip). */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* empurra as ações pro rodapé do card, pra todas alinharem na grade */
+.materia-card-acoes {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.materia-card-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* secundário e menor que o "Buscar professores": é um extra do card */
+.btn-resumo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-resumo:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.materia-resumo-bloco + .materia-resumo-bloco {
+  margin-top: 12px;
+}
+
+.materia-resumo-bloco h5 {
+  margin: 0 0 4px 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.materia-resumo-bloco p {
+  margin: 0;
+  color: var(--text);
+}
+
+.materia-recomendacoes {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.materia-recomendacoes li {
+  margin-bottom: 2px;
+}
+
+.materias-mais {
+  display: block;
+  margin: 0 auto 24px auto;
+}
+
+/* Filtros */
+.filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filtro-dropdown {
+  position: relative;
+}
+
+.filtro-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  /* com um curso longo selecionado o botão esticava além da tela; o rótulo
+     corta com "..." em vez de empurrar a largura da página */
+  max-width: min(340px, 100%);
+}
+
+.filtro-btn > span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.filtro-btn:hover {
+  border-color: var(--accent);
+}
+
+.filtro-btn svg:first-child {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.filtro-chevron {
+  transition: transform 0.15s ease;
+  color: var(--muted);
+  margin-left: 4px;
+}
+
+.filtro-chevron.open {
+  transform: rotate(180deg);
+}
+
+.filtro-lista {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  /* o filtro de curso tem 36 opções: sem teto a lista passava de 1000px e
+     saía da tela. overflow-y também clipa nos cantos arredondados, o que o
+     overflow: hidden fazia antes. */
+  max-height: 320px;
+  overflow-y: auto;
+  /* ao chegar no fim da lista o scroll para nela, sem puxar a página atrás */
+  overscroll-behavior: contain;
+  /* nome de curso passa de 60 caracteres: sem teto de largura a lista sairia
+     pro lado (e com o overflow-y acima viraria barra horizontal) */
+  max-width: min(420px, 88vw);
+}
+
+.filtro-opcao {
+  padding: 9px 14px;
+  font-size: 13px;
+  /* os filtros curtos (campus, turno) cabem numa linha de qualquer jeito;
+     os nomes de curso precisam quebrar em vez de esticar a lista */
+  line-height: 1.35;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.filtro-opcao:hover {
+  background: var(--panel-2);
+}
+
+.filtro-opcao.selecionada {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Cards de professor */
+.prof-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 14px;
+}
+
+.prof-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.prof-info {
+  flex: 1.4;
+  min-width: 0;
+}
+
+.prof-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+}
+
+.prof-info .meta {
+  font-size: 12px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.prof-links {
+  margin-top: 8px;
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.prof-links a,
+.prof-links button {
+  color: var(--accent);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.prof-links .sem-dados {
+  color: var(--muted);
+}
+
+.prof-links .sep {
+  color: var(--border);
+}
+
+.barra-wrap {
+  flex: 2.2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.barra {
+  flex: 1;
+  height: 18px;
+  border-radius: 9px;
+  overflow: hidden;
+  display: flex;
+  background: var(--panel-2);
+}
+
+.amostras {
+  font-weight: 600;
+  min-width: 40px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.prof-acoes {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.estrela-btn,
+.grade-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.estrela-btn.ativa {
+  color: #f4c150;
+}
+
+.grade-btn.ativa {
+  color: var(--accent);
+}
+
+.prof-horario {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.prof-horario svg {
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+.resumo-box {
+  margin-top: 14px;
+  background: var(--panel-2);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+}
+
+.resumo-box .quote {
+  margin: 0 0 10px 0;
+  color: var(--text);
+}
+
+.resumo-meta {
+  color: var(--muted);
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.erro-msg {
+  color: #f2545b;
+  font-size: 13px;
+}
+
+.aviso-box {
+  background: var(--accent-soft);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.aviso-box p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 4px 0;
+}
+
+/* Mini calendário da grade horária */
+.grade-card {
+  overflow-x: auto;
+  padding: 16px 18px;
+}
+
+.grade-semana-titulo {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+}
+
+.grade-grid {
+  display: grid;
+  min-width: 470px;
+}
+
+.grade-dia-header {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.grade-hora-label {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: right;
+  padding-right: 8px;
+  transform: translateY(-6px);
+}
+
+.grade-celula {
+  border-top: 1px solid var(--grade-linha-fraca);
+  border-left: 1px solid var(--border);
+}
+
+.grade-celula.hora-cheia {
+  border-top-color: var(--border);
+}
+
+.grade-evento {
+  margin: 1px 2px;
+  border-radius: 6px;
+  padding: 3px 6px;
+  /* a cor do texto vem junto com a cor do bloco (ver CORES em PaginaGrade) */
+  font-size: 10px;
+  line-height: 1.25;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.grade-evento strong {
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grade-evento span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.85;
+}
+
+.grade-item-solto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.grade-item-solto:first-of-type {
+  border-top: none;
+}
+
+.grade-item-solto button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.grade-acoes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.grade-totais {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.grade-total {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.grade-total strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.btn-copiar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-copiar svg {
+  font-size: 15px;
+}
+
+/* Dialog de escolha de turma */
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
+}
+
+.dialog {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.dialog-topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.dialog-topo h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+}
+
+.dialog-topo .subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.dialog-fechar {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  padding: 2px;
+}
+
+.dialog-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.dialog-opcao {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel-2);
+  cursor: pointer;
+}
+
+.dialog-opcao.selecionada {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.dialog-opcao.em-conflito {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dialog-opcao input {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+
+.dialog-opcao-corpo {
+  min-width: 0;
+  flex: 1;
+}
+
+.dialog-opcao-titulo {
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dialog-codigo {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.dialog-opcao-meta {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.dialog-aula {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+  margin-top: 3px;
+  flex-wrap: wrap;
+}
+
+.dialog-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.tag-teoria {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.tag-pratica {
+  background: rgba(77, 171, 247, 0.16);
+  color: #4dabf7;
+}
+
+.dialog-aula-docente {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.dialog-conflito {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #f2545b;
+}
+
+.dialog-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* objetivos passam de 4000 caracteres em algumas matérias: o corpo rola e o
+   topo com o nome e o botão de fechar ficam sempre visíveis */
+.dialog-resumo-corpo {
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.dialog-resumo .dialog-topo h3 {
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.btn-secundario {
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ===== Responsivo ===== */
+
+@media (max-width: 768px) {
+  .materias-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .conteudo {
+    margin-left: 0;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    z-index: 100;
+  }
+
+  .sidebar.sidebar-aberta {
+    transform: translateX(0);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
+  }
+
+  .sidebar-fechar {
+    display: flex;
+  }
+
+  .topbar-mobile {
+    display: flex;
+  }
+
+  .main {
+    padding: 20px 16px;
+  }
+
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-header-acoes {
+    flex-wrap: wrap;
+  }
+
+  .main-header h1 {
+    font-size: 24px;
+  }
+
+  .filtros {
+    flex-direction: column;
+  }
+
+  .prof-row {
+    flex-wrap: wrap;
+  }
+
+  .prof-info {
+    flex-basis: 100%;
+  }
+
+  .barra-wrap {
+    flex-basis: 100%;
+    order: 3;
+    margin-top: 10px;
+  }
+
+  .prof-acoes {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+  }
+
+  .prof-card {
+    position: relative;
+  }
+}
+
+@media (min-width: 769px) {
+  .sidebar-overlay {
+    display: none;
+  }
+}
+/* Página inicial: configuração do token da UFABCnext */
+.token-topo {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.token-topo h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.token-topo .subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.token-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 18px;
+}
+
+.token-input {
+  width: 100%;
+  display: block;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+.token-acoes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.token-apagar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.token-apagar:hover {
+  color: #f2545b;
+  border-color: #f2545b;
+}
+
+.token-status,
+.token-indicador {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Sem token o pontinho fica apagado, com token acende no verde do tema. */
+.token-status .status-dot,
+.token-indicador .status-dot {
+  background: var(--muted);
+}
+
+.token-status.ativo .status-dot,
+.token-indicador.ativo .status-dot {
+  background: var(--accent);
+}
+
+.token-indicador {
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+.token-indicador:hover {
+  color: var(--text);
+}
+
+.token-msg-ok {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.erro-msg svg {
+  vertical-align: -2px;
+}
+
+.token-ir {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.token-ajuda-titulo {
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+
+.token-ajuda {
+  margin: 0 0 14px;
+  padding-left: 20px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.token-ajuda .accent {
+  color: var(--accent);
+}
