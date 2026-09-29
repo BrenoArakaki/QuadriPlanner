@@ -1,57 +1,83 @@
-# QuadriPlanner
+# 📚 QuadriPlanner
 
-Ferramenta pra ajudar quem estuda na UFABC a montar a grade: mostra, para cada
-matéria ofertada no quadrimestre, quais professores dão as turmas e como é a
-distribuição de conceitos de cada um — junto com ementa, resumo das reviews,
-favoritos e um calendário da grade escolhida.
+O **QuadriPlanner** é uma ferramenta para estudantes da **UFABC** pesquisarem disciplinas, compararem professores e montarem sua grade quadrimestral em um só lugar.
 
-Os dados de turmas vêm do PDF oficial de turmas ofertadas; as avaliações de
-professores vêm da API do [UFABC Next](https://www.ufabcnext.com/app/), a quem
-vão todos os créditos por manter esse ecossistema.
+Os dados das turmas são obtidos a partir do **PDF oficial de turmas ofertadas da UFABC**, enquanto as avaliações dos professores são obtidas através da API do [UFABC Next](https://www.ufabcnext.com/).
 
-## Como funciona
+## ✨ Funcionalidades
 
-- **`materia_v2.py`** — lê o PDF de turmas ofertadas como tabela (`pdfplumber`)
-  e converte pra `turmas.csv`, o cache usado em tempo de execução. Também tem
-  as funções que consultam a API do UFABC Next.
-- **`ementas.py`** — casa as matérias do PDF com o catálogo de disciplinas
-  (`disciplinas_ufabc.json`) pra trazer objetivos e recomendações.
-- **`backend.py`** — API Flask de leitura que o frontend consome.
-- **`frontend/`** — SPA em React + Vite. Dentro de `src/`:
-  - `paginas/` — uma por aba da sidebar (`PaginaToken`, `PaginaRanking`, …)
-  - `componentes/` — UI compartilhada (`Componentes.jsx`) e os dialogs
-  - `lib/` — lógica sem UI: `token` (o token e o `apiFetch`), `favoritos` e
-    `grade` (persistência no `localStorage`), `resumos` (hook das reviews) e
-    `textoMatriculas` (texto pra colar no sistema de matrículas)
-  - `estilos/` — a folha de estilo única, com as variáveis dos temas
-  - `assets/` — imagens
-- **`trocar_pdf.py`** — troca o PDF de turmas num novo quadrimestre (ver abaixo).
-- **`materia.py`** — primeira versão do script, substituída pelo `materia_v2.py`.
-  Fica só como histórico.
+### 📚 Matérias
 
-### O token da UFABCnext
+Pesquise pelas disciplinas ofertadas no quadrimestre e consulte suas turmas, horários e professores.
+<img width="1882" height="963" alt="image" src="https://github.com/user-attachments/assets/25126372-ba66-4a0b-8b28-97c8775e54a7" />
 
-O backend **não guarda token nenhum**. Quem usa o site cola o próprio token da
-UFABCnext na página inicial; ele fica no `localStorage` do navegador e vai no
-cabeçalho `X-UFABC-Token` em cada requisição. Assim o backend é sem estado e
-duas pessoas podem usar a mesma instância com contas diferentes.
+### 👨‍🏫 Ranking de Professores
 
-Sem token as abas **Matérias** e **Minha Grade** continuam funcionando (são
-dados locais) — só o ranking e os resumos de professores dependem da API.
+Compare os professores de uma disciplina através da distribuição de conceitos e avaliações disponíveis.
+<img width="1882" height="950" alt="image" src="https://github.com/user-attachments/assets/33585f0e-ced4-4020-a3cb-c3ee38956134" />
 
-## Rodando
+### ⭐ Favoritos
 
-Backend (porta 5000):
+Salve matérias e professores para acessá-los rapidamente posteriormente.
+<img width="1737" height="882" alt="image" src="https://github.com/user-attachments/assets/610bbcb9-72fa-4e02-815d-88f7682bb6bd" />
+
+### 🗓️ Minha Grade
+
+Monte sua grade selecionando as turmas desejadas e visualize os horários em um calendário.
+<img width="1829" height="1080" alt="image" src="https://github.com/user-attachments/assets/7ccba62c-cd0d-4eb6-ac95-ade05ec2e75b" />
+
+## 🛠️ Tecnologias
+
+**Frontend**
+
+* React
+* Vite
+* JavaScript
+* CSS
+
+**Backend**
+
+* Python
+* Flask
+* pdfplumber
+
+**APIs e dados**
+
+* UFABC Next API
+* PDF oficial de turmas da UFABC
+* Catálogo de disciplinas da UFABC
+
+## 📁 Estrutura
+
+```text
+QuadriPlanner/
+├── backend.py
+├── materia_v2.py
+├── ementas.py
+├── trocar_pdf.py
+├── disciplinas_ufabc.json
+├── turmas.csv
+└── frontend/
+    └── src/
+        ├── paginas/
+        ├── componentes/
+        ├── lib/
+        ├── estilos/
+        └── assets/
+```
+
+## 🚀 Como executar
+
+### Backend
 
 ```bash
 pip install -r requirements.txt
 python backend.py
 ```
 
-Na primeira execução ele processa o PDF e gera o `turmas.csv`, o que leva alguns
-segundos; depois disso a subida é imediata.
+O backend será executado na porta `5000`. Na primeira execução, o PDF de turmas é processado e o `turmas.csv` é gerado.
 
-Frontend (porta 5173):
+### Frontend
 
 ```bash
 cd frontend
@@ -59,29 +85,28 @@ npm install
 npm run dev
 ```
 
-Abra o endereço que o Vite imprimir e cole seu token na página inicial.
+O frontend será disponibilizado pelo Vite, normalmente em `http://localhost:5173`.
 
-## Rotas da API
+## 🔑 Token UFABC Next
 
-| Rota | O que faz |
-| --- | --- |
-| `GET /api/materias?q=<termo>` | matérias que batem com o termo |
-| `GET /api/todas-materias` | catálogo completo das matérias ofertadas |
-| `GET /api/ementa?materia=<nome>` | objetivos e recomendações da matéria |
-| `GET /api/ranking?materia=<nome>` | ranking de professores da matéria |
-| `GET /api/resumo?teacher_id=<id>` | resumo das reviews do professor |
-| `GET /api/token/validar` | diz se o token enviado é aceito pela API |
+Para acessar o ranking e os resumos de professores, o usuário informa seu próprio token do UFABC Next.
 
-As três últimas exigem o cabeçalho `X-UFABC-Token`.
+O token fica armazenado no `localStorage` do navegador e é enviado através do header `X-UFABC-Token`.
 
-## Novo quadrimestre
+O backend não armazena tokens.
 
-Quando sai o PDF de turmas ofertadas do quadrimestre seguinte:
+## 🔄 Atualização do quadrimestre
+
+Para atualizar as turmas quando um novo PDF for disponibilizado:
 
 ```bash
-python trocar_pdf.py caminho/para/matriculas_2026_3_turmas_ofertadas.pdf
+python trocar_pdf.py caminho/para/novo_pdf.pdf
 ```
 
-O script valida o arquivo antes de trocar (só substitui se conseguir extrair a
-tabela de turmas), regenera o `turmas.csv` e guarda um `.bak` do PDF antigo.
-Reinicie o backend depois.
+O script valida o PDF, cria um backup do arquivo anterior e gera um novo `turmas.csv`.
+
+---
+
+### 🎓 Sobre
+
+Projeto desenvolvido para facilitar o planejamento da grade e a escolha de disciplinas na UFABC.
