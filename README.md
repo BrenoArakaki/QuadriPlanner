@@ -47,25 +47,6 @@ Monte sua grade selecionando as turmas desejadas e visualize os horários em um 
 * PDF oficial de turmas da UFABC
 * Catálogo de disciplinas da UFABC
 
-## 📁 Estrutura
-
-```text
-QuadriPlanner/
-├── backend.py
-├── materia_v2.py
-├── ementas.py
-├── trocar_pdf.py
-├── disciplinas_ufabc.json
-├── turmas.csv
-└── frontend/
-    └── src/
-        ├── paginas/
-        ├── componentes/
-        ├── lib/
-        ├── estilos/
-        └── assets/
-```
-
 ## 🚀 Como executar
 
 ### Backend
