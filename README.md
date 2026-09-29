@@ -24,7 +24,7 @@ Salve matérias e professores para acessá-los rapidamente posteriormente.
 ### 🗓️ Minha Grade
 
 Monte sua grade selecionando as turmas desejadas e visualize os horários em um calendário.
-<img width="1829" height="1080" alt="image" src="https://github.com/user-attachments/assets/7ccba62c-cd0d-4eb6-ac95-ade05ec2e75b" />
+<img width="1865" height="882" alt="image" src="https://github.com/user-attachments/assets/a24d47e1-5eb9-48e6-84f0-7f45dadeb453" />
 
 ## 🛠️ Tecnologias
 
